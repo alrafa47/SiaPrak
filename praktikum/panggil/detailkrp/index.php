@@ -25,6 +25,8 @@
 	$read = $conn->read();
 
 	$link 	= "index.php?lihat=detailkrp/";
+
+
 	?>
 
 	<div class = "row">	
@@ -36,11 +38,6 @@
 				<!-- <div class = "col-lg-3"></div> -->
 				<div class = "col-lg-6">
 					<form method ="POST"action = "panggil/detailkrp/tambah.php">
-			<!-- <div class="form-group">
-						<label>ID Detail KRP</label>
-						<input type ="text" id="idDetilKrp" name = "idDetilKrp" class="form-control" readonly>
-					</div> -->
-
 					<div class="form-group">
 						<label>NPM</label>
 						<?php
@@ -129,12 +126,10 @@
 				<th>Aksi</th>
 			</tr>
 			<tbody>
-
 				<?php
 				$no=1;
 				while($tampil = $read->fetch_array()){ 
 					?>
-
 					<tr>
 						<td><?php echo $no++; ?></td>
 						<td><?php echo $tampil['idDetilKrp']?></td>
@@ -154,11 +149,9 @@
 							</a>
 						</td>
 					</tr>
-
 					<?php
 				}
 				?>	
-
 			</tbody>
 		</table>
 	</div>

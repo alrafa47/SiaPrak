@@ -5,17 +5,15 @@
 </head>
 <body>
 	<style type="text/css">
-      body{
-        background-color:  #f0f5f5;
-        /*background: transparent;*/
-      }
-      form, table{
-      	background-color: white;
-      	padding:20px;
-      	border-radius: 5px;
-
-      }
-    </style>
+		body{
+			background-color:  #f0f5f5;
+		}
+		form, table{
+			background-color: white;
+			padding:20px;
+			border-radius: 5px;
+		}
+	</style>
 
 </body>
 </html>
@@ -25,6 +23,7 @@ $conn = new db_class();
 $read = $conn->read();
 $link 	= "index.php?lihat=krs/";
 $con = mysqli_connect("localhost","root","","demosiakad");
+
 
 ?>
 <div class = "row">	
@@ -39,14 +38,23 @@ $con = mysqli_connect("localhost","root","","demosiakad");
 
 					<div class="form-group">
 						<label>NPM : Nama</label>
-						<select class="form-control" name="npm" value="<?= $data->npm ?>">
+						<?php 
+						if (isset($_GET['npm'])) {
+							?>
+							<input type="hidden" name="npm" value="<?= $_GET['npm'] ?>">
+							<input class="form-control" type="text" value="<?= $_GET['npm'] ?>" readonly >
 							<?php
+						}else{
+							?>
+							<select class="form-control" name="npm">
+								<?php
 								$con = mysqli_connect("localhost","root","","demosiakad");
 								$result = mysqli_query($con,"SELECT * FROM mahasiswa where status ='aktif' ORDER BY npm");
 								while($row = mysqli_fetch_assoc($result)){
 
 									echo "<option value=$row[npm]>$row[npm] :  $row[nama]</option>";
-								} 
+								}
+							} 
 							?>
 						</select>
 					</div>
@@ -65,7 +73,6 @@ $con = mysqli_connect("localhost","root","","demosiakad");
 			<div class = "col-lg-3"></div>
 		</div><!-- .row -->
 		<br>
-
 		<table class="table table-hover table-bordered" style="margin-top: 10px">
 			<tr class="info">
 				<th>No</th>
@@ -89,6 +96,9 @@ $con = mysqli_connect("localhost","root","","demosiakad");
 						<td><?php echo $tampil['tahunAjaran']?></td>
 						
 						<td style="text-align: center;">
+							<a href="<?= 'index.php?lihat=detailkrs/index&idkrs='.$tampil['idKrs'] ?>" class="btn btn-primary btn-sm">
+								<span class = "glyphicon glyphicon-edit"></span> Edit
+							</a>
 							<a href="<?= $link.'edit&idKrs='.$tampil['idKrs'] ?>" class="btn btn-primary btn-sm">
 								<span class = "glyphicon glyphicon-edit"></span> Edit
 							</a> 
@@ -100,17 +110,8 @@ $con = mysqli_connect("localhost","root","","demosiakad");
 
 					<?php
 				}
-				?>	
-
+				?>
 			</tbody>
 		</table>
 	</div>
 </div>
-<!-- 
-<script type="text/javascript">
-	// Add your javascript here
-	$(function(){
-		$("#mp").chained("#jurusan");
-	});
-</script>
- -->

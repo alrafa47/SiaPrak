@@ -9,7 +9,7 @@ $password = $_POST['password'];
 
 
 // membuat URL GET request ke sistem A
-$url = "http://localhost/UTSPemrog2/siakad/api/service.php?username=".$username."&password=".$password; 
+$url = "http://localhost/SIAPRAK/siakad/api/service.php?username=".$username."&password=".$password; 
 
 // mengirim GET request ke sistem A dan membaca respon XML dari sistem A
 $bacaxml = simplexml_load_file($url);

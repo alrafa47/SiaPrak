@@ -27,7 +27,7 @@ $link 	= "index.php?lihat=krp/";
 $linkDetail 	= "index.php?lihat=detailkrp/";
 $con = mysqli_connect("localhost","root","","demosiapraktikum");
 
-$url = "http://localhost/UTSPemrog2/siakad/api/api.php";
+$url = "http://localhost/SIAPRAK/siakad/api/api.php";
 $json = file_get_contents($url);
 
 $krs = json_decode($json,true);

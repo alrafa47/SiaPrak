@@ -5,26 +5,25 @@
 </head>
 <body>
 	<style type="text/css">
-      body{
-        background-color:  #f0f5f5;
-        /*background: transparent;*/
-      }
-      form, table{
-      	background-color: white;
-      	padding:20px;
-      	border-radius: 5px;
+		body{
+			background-color:  #f0f5f5;
+			/*background: transparent;*/
+		}
+		form, table{
+			background-color: white;
+			padding:20px;
+			border-radius: 5px;
 
-      }
-    </style>
+		}
+	</style>
 
 </body>
 </html>
 <?php
 require 'class.php';
 $conn = new db_class();
-$read = $conn->read();
-
 $link 	= "index.php?lihat=detailkrs/";
+$con = mysqli_connect("localhost","root","","demosiakad");
 ?>
 
 <div class = "row">	
@@ -36,55 +35,83 @@ $link 	= "index.php?lihat=detailkrs/";
 			<!-- <div class = "col-lg-3"></div> -->
 			<div class = "col-lg-6">
 				<form method ="POST"action = "panggil/detailkrs/tambah.php">
-			<!-- <div class="form-group">
-						<label>ID Detail KRP</label>
-						<input type ="text" id="idDetilKrp" name = "idDetilKrp" class="form-control" readonly>
-					</div> -->
 
-			<div class="form-group">
-				<label>ID KRS</label>
-				<select class="form-control" name="idKrs"  value="<?= $data->idKrs ?>">
-					<?php
-					$con = mysqli_connect("localhost","root","","demosiakad");
-					$result = mysqli_query($con,"SELECT *FROM krs ORDER BY idKrs");
-					while($row = mysqli_fetch_assoc($result)){
+					<?php 
+					if (isset($_GET['idkrs']) && $conn->CheckMahasiswa($_GET['idkrs'])) {
+						$idkrs = $_GET['idkrs'];
+						$query = mysqli_query($con,"select krs.idkrs, krs.tahunAjaran, mahasiswa.* from krs inner join mahasiswa on krs.npm = mahasiswa.npm where krs.idkrs = '$idkrs' ") or die(mysql_error());
+						$hasil = mysqli_fetch_assoc($query);
+						$read = $conn->read1($hasil['npm']);
 
-						echo "<option value=$row[idKrs]>NPM : $row[npm] Tahun Ajaran : $row[tahunAjaran]</option>";
-					} 
+						?>
+						<div class="form-group">
+							<input type="hidden" name="idkrs" value="<?= $idkrs ?> ">
+							<label>NPM</label>
+							<input type="text" value="<?= $hasil['npm'] ?>" class="form-control" disabled>
+						</div>
+
+						<div class="form-group">
+							<label>Nama</label>
+							<input type="text" value="<?= $hasil['nama'] ?>" class="form-control" disabled>						
+						</div>
+
+						<div class="form-group">
+							<label>Tahun Ajaran</label>
+							<input type="text" value="<?= $hasil['tahunAjaran'] ?>" class="form-control" disabled>
+						</div>
+						<?php
+					}else{
+						$read = $conn->read();
+
+						?>
+						<div class="form-group">
+							<label>ID KRS</label>
+							<select class="form-control" name="idKrs"  value="<?= $data->idKrs ?>">
+								<?php
+								$result = mysqli_query($con,"SELECT * FROM krs ORDER BY idKrs");
+								while($row = mysqli_fetch_assoc($result)){
+
+									echo "<option value=$row[idKrs]>NPM : $row[npm] Tahun Ajaran : $row[tahunAjaran]</option>";
+								} 
+								?>
+							</select>
+						</div>
+
+
+						<?php
+					}
 					?>
-					</select>
-			</div>
-			<div class="form-group">
-				<label>Mata Kuliah</label>
-				<select class="form-control" name="idMk" value="<?= $data->idMk?>">
-					<?php
-					$con = mysqli_connect("localhost","root","","demosiakad");
-					$result = mysqli_query($con,"SELECT *FROM mk ORDER BY idMk");
-					while($row = mysqli_fetch_assoc($result)){
+					<div class="form-group">
+						<label>Mata Kuliah</label>
+						<select class="form-control" name="idMk" value="<?= $data->idMk?>">
+							<?php
+							$con = mysqli_connect("localhost","root","","demosiakad");
+							$result = mysqli_query($con,"SELECT *FROM mk ORDER BY idMk");
+							while($row = mysqli_fetch_assoc($result)){
 
-						echo "<option value=$row[idMk]>$row[namaMk]</option>";
-					} 
-					?>
-					</select>
-			</div>
-			
-			<div class="form-group">
-				<label>UTS</label>
-				<input type ="text" id="uts" name = "uts" class="form-control" >
-			</div>
-			<div class="form-group">
-				<label>UAS</label>
-				<input type ="text" id="uas" name = "uas" class="form-control" >
-			</div>
-			<div class="form-group">
-				<label>Praktikum</label>
-				<input type ="text" id="praktikum" name = "praktikum" class="form-control" >
-			</div>
-			<div class="form-group">
-				<label>Tugas</label>
-				<input type ="text" id="tugas" name = "tugas" class="form-control" >
-			</div>
-			
+								echo "<option value=$row[idMk]>$row[namaMk]</option>";
+							} 
+							?>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label>UTS</label>
+						<input type ="text" id="uts" name = "uts" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>UAS</label>
+						<input type ="text" id="uas" name = "uas" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>Praktikum</label>
+						<input type ="text" id="praktikum" name = "praktikum" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>Tugas</label>
+						<input type ="text" id="tugas" name = "tugas" class="form-control" >
+					</div>
+
 					
 					<div class = "form-group">
 						<button name = "save" class = "btn btn-success">
