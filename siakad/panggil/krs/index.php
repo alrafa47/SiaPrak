@@ -97,7 +97,7 @@ $con = mysqli_connect("localhost","root","","demosiakad");
 						
 						<td style="text-align: center;">
 							<a href="<?= 'index.php?lihat=detailkrs/index&idkrs='.$tampil['idKrs'] ?>" class="btn btn-primary btn-sm">
-								<span class = "glyphicon glyphicon-edit"></span> Edit
+								<span class = "glyphicon glyphicon-edit"></span> isi Krs
 							</a>
 							<a href="<?= $link.'edit&idKrs='.$tampil['idKrs'] ?>" class="btn btn-primary btn-sm">
 								<span class = "glyphicon glyphicon-edit"></span> Edit

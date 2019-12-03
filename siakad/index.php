@@ -1,3 +1,11 @@
+<?php 
+session_start();
+if (!isset($_SESSION['username']) && empty($_SESSION['username']) && $_SESSION['status'] != "login") {
+  header("location:login.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -67,34 +75,35 @@
                       <p class="text-danger"> <span class="glyphicon glyphicon-tags"></span> &nbsp; Mata Kuliah</p></a>
                     </li>
 
+                    <li>
+                      <a href="logout.php">
+                        <p class="text-danger"> <span class="glyphicon glyphicon-tags"></span> &nbsp; logout</p></a>
+                      </li>
+                    </ul>
+                  </div><!-- #navbar -->
+                </div><!-- .container -->
+              </nav><!-- .navbar -->
 
 
+              <div class="container">
 
-                  </ul>
-                </div><!-- #navbar -->
-              </div><!-- .container -->
-            </nav><!-- .navbar -->
+                <?php
+                /*Skrip dibawah berfungsi memanggil perintah sesuai nama file*/
+                if(!empty($_GET['lihat'])){
+                  include('panggil/'.$_GET['lihat'].'.php');
+                }
 
+                else{
+                  include 'beranda.php';
+                }
+                ?>
 
-            <div class="container">
-
-              <?php
-              /*Skrip dibawah berfungsi memanggil perintah sesuai nama file*/
-              if(!empty($_GET['lihat'])){
-                include('panggil/'.$_GET['lihat'].'.php');
-              }
-
-              else{
-                include 'beranda.php';
-              }
-              ?>
-
-            </div> <!-- .container -->
+              </div> <!-- .container -->
 
 
-            <!-- Panggil JavaScript -->
-            <!-- <script src="jquery/jquery.min.js"></script> -->
-            <!-- <script src="bootstrap/js/bootstrap.min.js"></script>     -->
-          </body>
+              <!-- Panggil JavaScript -->
+              <!-- <script src="jquery/jquery.min.js"></script> -->
+              <!-- <script src="bootstrap/js/bootstrap.min.js"></script>     -->
+            </body>
 
-          </html>
+            </html>

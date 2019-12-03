@@ -22,13 +22,13 @@ foreach($bacaxml->response as $respon)
   if ($respon == "TRUE"){
   	echo "Login Sukses";
 
-  	$_SESSION['username'] = $username;
-	$_SESSION['status'] = "login";
-	header("location:index.php");
+    $_SESSION['username'] = $username;
+    $_SESSION['status'] = "login";
+    header("location:index.php");
 
   }
   else if ($respon == "FALSE"){
-      header("location:login.php?msg=1");
+    header("location:login.php?msg=1");
 
   }
 }  

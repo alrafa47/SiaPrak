@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2019 at 02:15 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.4
+-- Generation Time: Dec 03, 2019 at 01:04 AM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -37,6 +37,14 @@ CREATE TABLE `detilkrp` (
   `uas` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `detilkrp`
+--
+
+INSERT INTO `detilkrp` (`idDetilKrp`, `idKrp`, `idMataPraktikum`, `tugas`, `uts`, `uas`) VALUES
+(1, 1, 3, 10, 30, 10),
+(2, 2, 3, 40, 20, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -50,6 +58,15 @@ CREATE TABLE `krp` (
   `tanggal` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `krp`
+--
+
+INSERT INTO `krp` (`idKrp`, `npm`, `tahunAjaran`, `tanggal`) VALUES
+(1, '17', '2019', '2019-11-10'),
+(2, '12', '2019', '2019-11-20'),
+(3, '17', '2019', '2019-11-22');
+
 -- --------------------------------------------------------
 
 --
@@ -58,9 +75,19 @@ CREATE TABLE `krp` (
 
 CREATE TABLE `matapraktikum` (
   `idMataPraktikum` int(11) NOT NULL,
+  `idMk` int(11) NOT NULL,
   `namaMataPraktikum` varchar(50) DEFAULT NULL,
   `tahunAjaran` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `matapraktikum`
+--
+
+INSERT INTO `matapraktikum` (`idMataPraktikum`, `idMk`, `namaMataPraktikum`, `tahunAjaran`) VALUES
+(1, 5, 'mobile', '2019'),
+(2, 4, '3d', '2019'),
+(3, 1, 'pemrograman', '2019');
 
 --
 -- Indexes for dumped tables
@@ -94,19 +121,19 @@ ALTER TABLE `matapraktikum`
 -- AUTO_INCREMENT for table `detilkrp`
 --
 ALTER TABLE `detilkrp`
-  MODIFY `idDetilKrp` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDetilKrp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `krp`
 --
 ALTER TABLE `krp`
-  MODIFY `idKrp` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idKrp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `matapraktikum`
 --
 ALTER TABLE `matapraktikum`
-  MODIFY `idMataPraktikum` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idMataPraktikum` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

@@ -1,12 +1,5 @@
 <?php
-
-// koneksi ke database di sistem A
-//mysqli_connect("localhost","root","","autentikasi");
-//mysqli_connect("localhost", "root", "");
-//mysqli_select_db("autentikasi");
-
 $koneksi = mysqli_connect("localhost","root","","demosiakad");
- 
 // Check connection
 if (mysqli_connect_errno()){
 	echo "Koneksi database gagal : " . mysqli_connect_error();
@@ -19,13 +12,13 @@ $pass = $_GET['password'];
 
 if (isset($user)&& isset($pass))
 {
-   $query = "SELECT * FROM mahasiswa WHERE npm = '$user'";
-   $hasil = mysqli_query($koneksi, $query);
-   $data  = mysqli_fetch_array($hasil);
-   $password = $data['password'];
+	$query = "SELECT * FROM mahasiswa WHERE npm = '$user'";
+	$hasil = mysqli_query($koneksi, $query);
+	$data  = mysqli_fetch_array($hasil);
+	$password = $data['password'];
 
-   if ($pass == $password) $response = "TRUE";
-   else $response = "FALSE";
+	if ($pass == $password) $response = "TRUE";
+	else $response = "FALSE";
 }
 else $response = "FALSE";
 

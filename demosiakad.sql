@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2019 at 02:15 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.4
+-- Generation Time: Dec 02, 2019 at 03:34 PM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,6 +25,24 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `datanilai`
+-- (See below for the actual view)
+--
+CREATE TABLE `datanilai` (
+`idDetilKrs` int(11)
+,`idKrs` int(11)
+,`idMk` int(11)
+,`uts` int(11)
+,`uas` int(11)
+,`praktikum` int(11)
+,`tugas` int(11)
+,`npm` varchar(50)
+,`tahunAjaran` varchar(50)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `detilkrs`
 --
 
@@ -38,6 +56,14 @@ CREATE TABLE `detilkrs` (
   `tugas` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `detilkrs`
+--
+
+INSERT INTO `detilkrs` (`idDetilKrs`, `idKrs`, `idMk`, `uts`, `uas`, `praktikum`, `tugas`) VALUES
+(2, 14, 1, 2, 2, 50, 2),
+(3, 15, 1, 10, 10, 60, 10);
+
 -- --------------------------------------------------------
 
 --
@@ -49,6 +75,15 @@ CREATE TABLE `krs` (
   `npm` varchar(50) DEFAULT NULL,
   `tahunAjaran` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `krs`
+--
+
+INSERT INTO `krs` (`idKrs`, `npm`, `tahunAjaran`) VALUES
+(14, '17', '2017'),
+(15, '12', '2020'),
+(17, '123', '2012');
 
 -- --------------------------------------------------------
 
@@ -64,6 +99,15 @@ CREATE TABLE `mahasiswa` (
   `status` varchar(50) NOT NULL DEFAULT 'Tidak Aktif'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `mahasiswa`
+--
+
+INSERT INTO `mahasiswa` (`npm`, `nama`, `alamat`, `password`, `status`) VALUES
+('12', 'ada', 'asda', '123', 'Tidak Aktif'),
+('123', 'al', 'malang', 'al', 'Aktif'),
+('17', '12ew', 'we2', '1231', 'Aktif');
+
 -- --------------------------------------------------------
 
 --
@@ -75,6 +119,25 @@ CREATE TABLE `mk` (
   `namaMk` varchar(50) NOT NULL,
   `tahunAjaran` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `mk`
+--
+
+INSERT INTO `mk` (`idMk`, `namaMk`, `tahunAjaran`) VALUES
+(1, 'pemrog', '2020'),
+(3, 'ave', '2020'),
+(4, 'animasi 3D', '2019'),
+(5, 'mobile', '2019');
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `datanilai`
+--
+DROP TABLE IF EXISTS `datanilai`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `datanilai`  AS  select `detilkrs`.`idDetilKrs` AS `idDetilKrs`,`detilkrs`.`idKrs` AS `idKrs`,`detilkrs`.`idMk` AS `idMk`,`detilkrs`.`uts` AS `uts`,`detilkrs`.`uas` AS `uas`,`detilkrs`.`praktikum` AS `praktikum`,`detilkrs`.`tugas` AS `tugas`,`krs`.`npm` AS `npm`,`krs`.`tahunAjaran` AS `tahunAjaran` from (`detilkrs` join `krs` on((`detilkrs`.`idKrs` = `krs`.`idKrs`))) ;
 
 --
 -- Indexes for dumped tables
@@ -115,19 +178,19 @@ ALTER TABLE `mk`
 -- AUTO_INCREMENT for table `detilkrs`
 --
 ALTER TABLE `detilkrs`
-  MODIFY `idDetilKrs` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDetilKrs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `krs`
 --
 ALTER TABLE `krs`
-  MODIFY `idKrs` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idKrs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `mk`
 --
 ALTER TABLE `mk`
-  MODIFY `idMk` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idMk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
